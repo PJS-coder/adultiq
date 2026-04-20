@@ -1,0 +1,80 @@
+[
+  {
+    "id": "1776068942375dtc3bzjfq",
+    "createdAt": "2026-04-13T08:29:02.375Z",
+    "updatedAt": "2026-04-13T08:31:52.976Z",
+    "name": "Pjs",
+    "email": "pjs89079@gmail.com",
+    "password": "$2a$10$ClGycB0quNILB9wywCpO4O27A17AFCDJPdng5tlnjxqKsyoKhsefK",
+    "adultIqScore": 8,
+    "quizCompleted": true,
+    "quizAnswers": {
+      "credit": "To assess your creditworthiness for loans and rentals",
+      "taxes": "A health insurance enrollment form",
+      "insurance": "A discount for healthy lifestyle choices",
+      "renting": "Six months rent upfront",
+      "finance": "1 year of expenses",
+      "employment": "Only overtime pay",
+      "rights": "Only during business hours",
+      "debt": "Your credit score automatically improves",
+      "healthcare": "Never, always go to the ER",
+      "investing": "A government loan program",
+      "contracts": "Only read the first page",
+      "budgeting": "50% wants, 30% savings, 20% needs"
+    },
+    "level": 1,
+    "xp": 50
+  },
+  {
+    "id": "1776704552868t56wziodc",
+    "createdAt": "2026-04-20T17:02:32.868Z",
+    "updatedAt": "2026-04-20T17:02:50.292Z",
+    "name": "Prabhjot Singh",
+    "email": "ps8907310@gmail.com",
+    "password": "$2a$10$QJ9UXmeQR/5pOQW/fNC/FOPQoXKx.wPrD4jbergkAQSkmok7EkOCG",
+    "adultIqScore": 0,
+    "quizCompleted": true,
+    "quizAnswers": {
+      "credit": "To determine your income level",
+      "taxes": "A lease agreement for apartments",
+      "insurance": "A discount for healthy lifestyle choices",
+      "renting": "Just a verbal agreement",
+      "finance": "No emergency fund needed",
+      "employment": "Annual salary divided by 12",
+      "rights": "Yes, but only once per month",
+      "debt": "The remaining balance is forgiven",
+      "healthcare": "Only if you don't have insurance",
+      "investing": "A credit card rewards program",
+      "contracts": "Trust that everything is standard",
+      "budgeting": "50% rent, 30% food, 20% entertainment"
+    },
+    "level": 1,
+    "xp": 50
+  },
+  {
+    "id": "17767064055764ku16h4tu",
+    "createdAt": "2026-04-20T17:33:25.576Z",
+    "updatedAt": "2026-04-20T17:41:24.980Z",
+    "name": "Test User",
+    "email": "test@adultiq.com",
+    "password": "$2a$10$EYcw2rWOSEnCwKHsP9hzNeuKwxAtwsw6ylDBPiFXZFNe8w515lV.m",
+    "adultIqScore": 9,
+    "quizCompleted": false,
+    "quizAnswers": {},
+    "level": 1,
+    "xp": 5
+  },
+  {
+    "id": "1776707139083hqdelb9u3",
+    "createdAt": "2026-04-20T17:45:39.083Z",
+    "updatedAt": "2026-04-20T17:49:31.127Z",
+    "name": "Demo User",
+    "email": "demo@adultiq.com",
+    "password": "$2a$10$WAtvv9OeCyrSti9AfO77r.Grtkb58NalHt1N4uPpilg8msZZDWjSK",
+    "adultIqScore": 9,
+    "quizCompleted": false,
+    "quizAnswers": {},
+    "level": 1,
+    "xp": 30
+  }
+]

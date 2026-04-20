@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1776706860853r3mycnmuw",
+    "createdAt": "2026-04-20T17:41:00.853Z",
+    "updatedAt": "2026-04-20T17:41:00.853Z",
+    "conversationId": "conv_1776706860852_35ydvqufd",
+    "userId": "17767064055764ku16h4tu",
+    "role": "user",
+    "content": "Hello, I need help with budgeting",
+    "timestamp": "2026-04-20T17:41:00.852Z",
+    "metadata": {
+      "hasDocumentContext": false,
+      "personalizedFor": "beginner",
+      "responseType": "quick"
+    }
+  },
+  {
+    "id": "17767068608535rwfozl2r",
+    "createdAt": "2026-04-20T17:41:00.853Z",
+    "updatedAt": "2026-04-20T17:41:00.853Z",
+    "conversationId": "conv_1776706860852_35ydvqufd",
+    "userId": "17767064055764ku16h4tu",
+    "role": "assistant",
+    "content": "I'd be happy to help! Could you provide a bit more detail about your specific situation?",
+    "timestamp": "2026-04-20T17:41:01.853Z",
+    "metadata": {
+      "hasDocumentContext": false,
+      "personalizedFor": "beginner",
+      "responseType": "quick"
+    }
+  },
+  {
+    "id": "1776707267727scmw7g851",
+    "createdAt": "2026-04-20T17:47:47.727Z",
+    "updatedAt": "2026-04-20T17:47:47.727Z",
+    "conversationId": "conv_1776707267725_s7m8t6vgb",
+    "userId": "1776707139083hqdelb9u3",
+    "role": "user",
+    "content": "I am a student and need advice on managing my finances. What should I focus on first?",
+    "timestamp": "2026-04-20T17:47:47.725Z",
+    "metadata": {
+      "hasDocumentContext": false,
+      "personalizedFor": "beginner",
+      "responseType": "contextual"
+    }
+  },
+  {
+    "id": "1776707267728ow06gdn6k",
+    "createdAt": "2026-04-20T17:47:47.728Z",
+    "updatedAt": "2026-04-20T17:47:47.728Z",
+    "conversationId": "conv_1776707267725_s7m8t6vgb",
+    "userId": "1776707139083hqdelb9u3",
+    "role": "assistant",
+    "content": "Managing finances as a student can be challenging, but taking the first step is a great start. To begin, let's focus on understanding your financial situation and creating a foundation for healthy financial habits. Here are three key areas to focus on first:\n\n1. **Track your expenses**: For one month, write down every single transaction you make, including small purchases like coffee or snacks. This will help you identify areas where you can cut back and understand your spending habits.\n2. **Create a budget**: Based on your income (from part-time jobs, scholarships, or family support) and expenses, allocate your money into categories like rent, food, transportation, and entertainment. You can use a budgeting app or spreadsheet to make it easier.\n3. **Set financial goals**: What do you want to achieve in the short-term (e.g., saving for a spring break trip) and long-term (e.g., paying off student loans or building an emergency fund)? Setting specific goals will help you stay motivated to manage your finances effectively.\n\nRemember, managing finances is a process, and it's okay to start small. By focusing on these three areas, you'll be well on your way to developing healthy financial habits.\n\nWhat's your current financial situation like? Do you have any income or expenses that you're concerned about?",
+    "timestamp": "2026-04-20T17:47:48.728Z",
+    "metadata": {
+      "hasDocumentContext": false,
+      "personalizedFor": "beginner",
+      "responseType": "contextual"
+    }
+  }
+]

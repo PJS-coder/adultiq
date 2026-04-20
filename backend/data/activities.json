@@ -1,0 +1,60 @@
+[
+  {
+    "id": "1776706860867b37pwgb7a",
+    "createdAt": "2026-04-20T17:41:00.867Z",
+    "updatedAt": "2026-04-20T17:41:00.867Z",
+    "userId": "17767064055764ku16h4tu",
+    "activityType": "coach_interaction",
+    "activityData": {
+      "topic": "finance",
+      "sentiment": "neutral",
+      "complexity": "simple"
+    },
+    "timestamp": "2026-04-20T17:41:00.866Z",
+    "score": null,
+    "metadata": {}
+  },
+  {
+    "id": "1776706907434ggt40aljj",
+    "createdAt": "2026-04-20T17:41:47.434Z",
+    "updatedAt": "2026-04-20T17:41:47.434Z",
+    "userId": "17767064055764ku16h4tu",
+    "activityType": "document_analyzed",
+    "activityData": {
+      "documentType": "lease",
+      "complexity": "low"
+    },
+    "timestamp": "2026-04-20T17:41:47.434Z",
+    "score": null,
+    "metadata": {}
+  },
+  {
+    "id": "1776707267739wvkmgb7kr",
+    "createdAt": "2026-04-20T17:47:47.739Z",
+    "updatedAt": "2026-04-20T17:47:47.739Z",
+    "userId": "1776707139083hqdelb9u3",
+    "activityType": "coach_interaction",
+    "activityData": {
+      "topic": "education",
+      "sentiment": "neutral",
+      "complexity": "complex"
+    },
+    "timestamp": "2026-04-20T17:47:47.738Z",
+    "score": null,
+    "metadata": {}
+  },
+  {
+    "id": "1776707386608rsl8qi095",
+    "createdAt": "2026-04-20T17:49:46.608Z",
+    "updatedAt": "2026-04-20T17:49:46.608Z",
+    "userId": "1776707139083hqdelb9u3",
+    "activityType": "document_analyzed",
+    "activityData": {
+      "documentType": "lease",
+      "complexity": "low"
+    },
+    "timestamp": "2026-04-20T17:49:46.607Z",
+    "score": null,
+    "metadata": {}
+  }
+]

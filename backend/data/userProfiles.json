@@ -1,0 +1,74 @@
+[
+  {
+    "userId": "17767064055764ku16h4tu",
+    "age": null,
+    "income": null,
+    "employmentStatus": "student",
+    "livingSituation": "renting",
+    "financialGoals": [],
+    "knowledgeLevel": "beginner",
+    "riskTolerance": "moderate",
+    "adultIqScore": 9,
+    "profileData": {
+      "activityCount": 0,
+      "completedModules": [],
+      "simulationScores": {},
+      "preferences": {
+        "communicationStyle": "simple"
+      },
+      "learningStyle": "visual",
+      "topicInterests": [],
+      "skillLevels": {
+        "legal_awareness": 5
+      },
+      "behaviorPatterns": {
+        "lastUpdated": "2026-04-20T17:41:47.432Z",
+        "engagementLevel": "low",
+        "peakActivityHour": 0,
+        "learningVelocity": 0
+      },
+      "interactionTopics": {
+        "finance": 1
+      },
+      "documentExperience": {
+        "lease": 1
+      }
+    },
+    "lastUpdated": "2026-04-20T17:41:47.433Z"
+  },
+  {
+    "userId": "1776707139083hqdelb9u3",
+    "age": null,
+    "income": null,
+    "employmentStatus": "student",
+    "livingSituation": "renting",
+    "financialGoals": [],
+    "knowledgeLevel": "beginner",
+    "riskTolerance": "moderate",
+    "adultIqScore": 9,
+    "profileData": {
+      "activityCount": 0,
+      "completedModules": [],
+      "simulationScores": {},
+      "preferences": {},
+      "learningStyle": "visual",
+      "topicInterests": [],
+      "skillLevels": {
+        "legal_awareness": 5
+      },
+      "behaviorPatterns": {
+        "lastUpdated": "2026-04-20T17:49:46.605Z",
+        "engagementLevel": "low",
+        "peakActivityHour": 0,
+        "learningVelocity": 0
+      },
+      "interactionTopics": {
+        "education": 1
+      },
+      "documentExperience": {
+        "lease": 1
+      }
+    },
+    "lastUpdated": "2026-04-20T17:49:46.607Z"
+  }
+]

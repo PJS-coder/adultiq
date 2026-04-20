@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1776706907429efaegfm42",
+    "createdAt": "2026-04-20T17:41:47.429Z",
+    "updatedAt": "2026-04-20T17:41:47.429Z",
+    "userId": "17767064055764ku16h4tu",
+    "title": "Sample Lease Agreement",
+    "content": "LEASE AGREEMENT\n\nThis lease agreement is between John Doe (Tenant) and ABC Properties (Landlord).\n\nProperty Address: 123 Main Street, Apartment 2B, City, State 12345\n\nLease Term: 12 months starting January 1, 2024\nMonthly Rent: $1,200 due on the 1st of each month\nSecurity Deposit: $1,200 (refundable)\n\nTenant Responsibilities:\n- Pay rent on time\n- Maintain property in good condition\n- No pets allowed\n- No smoking\n\nLandlord Responsibilities:\n- Provide habitable living conditions\n- Handle major repairs\n- 24-hour notice before entry\n\nLate Fee: $50 if rent is more than 5 days late\nEarly Termination: 60 days notice required, forfeit security deposit\n\nThis agreement is governed by state law.",
+    "documentType": "lease",
+    "fileSize": 693,
+    "chunkCount": 1,
+    "uploadDate": "2026-04-20T17:41:47.428Z"
+  },
+  {
+    "id": "1776707386601i9dep3lwu",
+    "createdAt": "2026-04-20T17:49:46.601Z",
+    "updatedAt": "2026-04-20T17:49:46.601Z",
+    "userId": "1776707139083hqdelb9u3",
+    "title": "Demo Lease Agreement",
+    "content": "LEASE AGREEMENT\n\nThis lease agreement is between John Doe (Tenant) and ABC Properties (Landlord).\n\nProperty Address: 123 Main Street, Apartment 2B, City, State 12345\n\nLease Term: 12 months starting January 1, 2024\nMonthly Rent: $1,200 due on the 1st of each month\nSecurity Deposit: $1,200 (refundable)\n\nTenant Responsibilities:\n- Pay rent on time\n- Maintain property in good condition\n- No pets allowed\n- No smoking\n\nLandlord Responsibilities:\n- Provide habitable living conditions\n- Handle major repairs\n- 24-hour notice before entry\n\nLate Fee: $50 if rent is more than 5 days late\nEarly Termination: 60 days notice required, forfeit security deposit\n\nThis agreement is governed by state law.",
+    "documentType": "lease",
+    "fileSize": 693,
+    "chunkCount": 1,
+    "uploadDate": "2026-04-20T17:49:46.600Z"
+  }
+]
