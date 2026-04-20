@@ -2,7 +2,7 @@
   {
     "id": "1776068942375dtc3bzjfq",
     "createdAt": "2026-04-13T08:29:02.375Z",
-    "updatedAt": "2026-04-20T19:03:36.152Z",
+    "updatedAt": "2026-04-20T19:10:00.875Z",
     "name": "Pjs",
     "email": "pjs89079@gmail.com",
     "password": "$2a$10$ClGycB0quNILB9wywCpO4O27A17AFCDJPdng5tlnjxqKsyoKhsefK",
@@ -23,12 +23,12 @@
       "budgeting": "50% wants, 30% savings, 20% needs"
     },
     "level": 1,
-    "xp": 55
+    "xp": 60
   },
   {
     "id": "1776704552868t56wziodc",
     "createdAt": "2026-04-20T17:02:32.868Z",
-    "updatedAt": "2026-04-20T19:03:11.955Z",
+    "updatedAt": "2026-04-20T19:09:55.572Z",
     "name": "Prabhjot Singh",
     "email": "ps8907310@gmail.com",
     "password": "$2a$10$QJ9UXmeQR/5pOQW/fNC/FOPQoXKx.wPrD4jbergkAQSkmok7EkOCG",
@@ -49,7 +49,7 @@
       "budgeting": "50% rent, 30% food, 20% entertainment"
     },
     "level": 1,
-    "xp": 55
+    "xp": 60
   },
   {
     "id": "17767064055764ku16h4tu",

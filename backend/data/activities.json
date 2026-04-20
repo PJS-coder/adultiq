@@ -175,5 +175,35 @@
     "timestamp": "2026-04-20T19:03:36.150Z",
     "score": null,
     "metadata": {}
+  },
+  {
+    "id": "1776712195571fyqyrlz0a",
+    "createdAt": "2026-04-20T19:09:55.571Z",
+    "updatedAt": "2026-04-20T19:09:55.571Z",
+    "userId": "1776704552868t56wziodc",
+    "activityType": "coach_interaction",
+    "activityData": {
+      "topic": "general",
+      "sentiment": "neutral",
+      "complexity": "complex"
+    },
+    "timestamp": "2026-04-20T19:09:55.571Z",
+    "score": null,
+    "metadata": {}
+  },
+  {
+    "id": "1776712200874yp4ifdoop",
+    "createdAt": "2026-04-20T19:10:00.874Z",
+    "updatedAt": "2026-04-20T19:10:00.874Z",
+    "userId": "1776068942375dtc3bzjfq",
+    "activityType": "coach_interaction",
+    "activityData": {
+      "topic": "career",
+      "sentiment": "neutral",
+      "complexity": "complex"
+    },
+    "timestamp": "2026-04-20T19:10:00.874Z",
+    "score": null,
+    "metadata": {}
   }
 ]

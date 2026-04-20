@@ -23,17 +23,34 @@ const authFetch = async (url: string, options: RequestInit = {}) => {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const response = await fetch(`${API_URL}${url}`, {
-    ...options,
-    headers,
-  });
+  console.log('🔗 API Request:', `${API_URL}${url}`);
+  console.log('🔑 Has token:', !!token);
 
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({ error: 'Request failed' }));
-    throw new Error(error.error || 'Request failed');
+  try {
+    const response = await fetch(`${API_URL}${url}`, {
+      ...options,
+      headers,
+    });
+
+    console.log('📡 Response status:', response.status);
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ error: 'Request failed' }));
+      console.error('❌ API Error:', error);
+      throw new Error(error.error || `HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log('✅ API Success:', data.success ? 'Success' : 'Response received');
+    return data;
+  } catch (error) {
+    console.error('🚨 Network Error:', error);
+    // Handle network errors
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new Error(`Cannot connect to server at ${API_URL}. Please check if the backend is running.`);
+    }
+    throw error;
   }
-
-  return response.json();
 };
 
 export const api = {
@@ -78,6 +95,8 @@ export const api = {
 
   // Coach
   async sendCoachMessage(message: string, conversationId?: string) {
+    console.log('🚀 Sending coach message to:', `${API_URL}/api/coach/chat`);
+    console.log('📝 Message:', message);
     return authFetch('/api/coach/chat', {
       method: 'POST',
       body: JSON.stringify({ message, conversationId }),

@@ -60,6 +60,24 @@ export default function CoachChat() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, typingText]);
 
+  // Test backend connection on component mount
+  useEffect(() => {
+    const testConnection = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002'}/health`);
+        if (response.ok) {
+          console.log('✅ Backend connection successful');
+        } else {
+          console.error('❌ Backend connection failed:', response.status);
+        }
+      } catch (error) {
+        console.error('❌ Backend connection error:', error);
+      }
+    };
+    
+    testConnection();
+  }, []);
+
   const typeMessage = async (text: string, onComplete: (text: string) => void) => {
     setIsTyping(true);
     setTypingText("");
@@ -106,9 +124,22 @@ export default function CoachChat() {
     } catch (err) {
       console.error('Coach chat error:', err);
       setLoading(false);
+      
+      let errorMessage = "⚠️ Connection error. Please check your internet and try again.";
+      
+      if (err instanceof Error) {
+        if (err.message.includes('Cannot connect to server')) {
+          errorMessage = "⚠️ Cannot connect to the AI coach. Please make sure the backend server is running.";
+        } else if (err.message.includes('Not authorized')) {
+          errorMessage = "⚠️ Please sign in to use the AI coach.";
+        } else if (err.message.includes('HTTP 500')) {
+          errorMessage = "⚠️ The AI coach is temporarily unavailable. Please try again in a moment.";
+        }
+      }
+      
       setMessages(prev => [...prev, {
         type: "ai",
-        text: "⚠️ Connection error. Please check your internet and try again.",
+        text: errorMessage,
         typing: false
       }]);
     }
