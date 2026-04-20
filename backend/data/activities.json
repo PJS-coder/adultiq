@@ -145,5 +145,35 @@
     "timestamp": "2026-04-20T18:56:00.092Z",
     "score": null,
     "metadata": {}
+  },
+  {
+    "id": "1776711791954np4u1ozwf",
+    "createdAt": "2026-04-20T19:03:11.954Z",
+    "updatedAt": "2026-04-20T19:03:11.954Z",
+    "userId": "1776704552868t56wziodc",
+    "activityType": "coach_interaction",
+    "activityData": {
+      "topic": "legal",
+      "sentiment": "neutral",
+      "complexity": "complex"
+    },
+    "timestamp": "2026-04-20T19:03:11.954Z",
+    "score": null,
+    "metadata": {}
+  },
+  {
+    "id": "17767118161515ybk4yjf7",
+    "createdAt": "2026-04-20T19:03:36.151Z",
+    "updatedAt": "2026-04-20T19:03:36.151Z",
+    "userId": "1776068942375dtc3bzjfq",
+    "activityType": "coach_interaction",
+    "activityData": {
+      "topic": "career",
+      "sentiment": "neutral",
+      "complexity": "complex"
+    },
+    "timestamp": "2026-04-20T19:03:36.150Z",
+    "score": null,
+    "metadata": {}
   }
 ]

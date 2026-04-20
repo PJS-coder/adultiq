@@ -58,5 +58,125 @@
         "strugglingArea": null
       }
     }
+  },
+  {
+    "id": "177671179195257ofxqv31",
+    "createdAt": "2026-04-20T19:03:11.952Z",
+    "updatedAt": "2026-04-20T19:03:11.952Z",
+    "userId": "1776704552868t56wziodc",
+    "eventType": "coach_interaction",
+    "eventData": {
+      "messageLength": 37,
+      "hasContext": false,
+      "topic": "legal",
+      "sentiment": "neutral",
+      "complexity": "complex"
+    },
+    "context": {
+      "timestamp": "2026-04-20T19:03:11.951Z"
+    },
+    "patterns": {
+      "frequency": {
+        "currentEventCount": {
+          "total": 0,
+          "daily": 0,
+          "weekly": 0
+        },
+        "mostFrequent": "none",
+        "dailyActivity": 0,
+        "weeklyActivity": 0
+      },
+      "timing": {
+        "peakHour": 0,
+        "peakDay": 0,
+        "currentHourActivity": 0,
+        "currentDayActivity": 0,
+        "isTypicalTime": true,
+        "timeOfDayPattern": "night"
+      },
+      "sequences": {
+        "commonSequences": [],
+        "followsPattern": false,
+        "potentialSequence": "coach_interaction",
+        "sequenceBreaker": false
+      },
+      "engagement": {
+        "avgSessionLength": 0,
+        "avgInteractionDepth": 0,
+        "totalSessions": 0,
+        "currentSessionLength": 0,
+        "engagementLevel": "low",
+        "isDeepEngagement": false
+      },
+      "learning": {
+        "totalLearningEvents": 0,
+        "avgScore": 0,
+        "progressionTrend": "insufficient_data",
+        "learningVelocity": 0,
+        "preferredLearningStyle": "visual",
+        "isLearningEvent": false,
+        "strugglingArea": null
+      }
+    }
+  },
+  {
+    "id": "177671181614656lzpevm3",
+    "createdAt": "2026-04-20T19:03:36.146Z",
+    "updatedAt": "2026-04-20T19:03:36.146Z",
+    "userId": "1776068942375dtc3bzjfq",
+    "eventType": "coach_interaction",
+    "eventData": {
+      "messageLength": 39,
+      "hasContext": false,
+      "topic": "career",
+      "sentiment": "neutral",
+      "complexity": "complex"
+    },
+    "context": {
+      "timestamp": "2026-04-20T19:03:36.145Z"
+    },
+    "patterns": {
+      "frequency": {
+        "currentEventCount": {
+          "total": 0,
+          "daily": 0,
+          "weekly": 0
+        },
+        "mostFrequent": "none",
+        "dailyActivity": 0,
+        "weeklyActivity": 0
+      },
+      "timing": {
+        "peakHour": 0,
+        "peakDay": 0,
+        "currentHourActivity": 0,
+        "currentDayActivity": 0,
+        "isTypicalTime": true,
+        "timeOfDayPattern": "night"
+      },
+      "sequences": {
+        "commonSequences": [],
+        "followsPattern": false,
+        "potentialSequence": "coach_interaction",
+        "sequenceBreaker": false
+      },
+      "engagement": {
+        "avgSessionLength": 0,
+        "avgInteractionDepth": 0,
+        "totalSessions": 0,
+        "currentSessionLength": 0,
+        "engagementLevel": "low",
+        "isDeepEngagement": false
+      },
+      "learning": {
+        "totalLearningEvents": 0,
+        "avgScore": 0,
+        "progressionTrend": "insufficient_data",
+        "learningVelocity": 0,
+        "preferredLearningStyle": "visual",
+        "isLearningEvent": false,
+        "strugglingArea": null
+      }
+    }
   }
 ]

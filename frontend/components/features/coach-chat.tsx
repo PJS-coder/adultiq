@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { MessageSquare, Sparkles } from 'lucide-react';
+import { api } from '../../lib/api';
 
 const SYSTEM_PROMPT = `You are AdultIQ — a smart, friendly, and deeply knowledgeable AI guide built specifically for young adults turning 18. You help them navigate adult life with confidence and clarity.
 
@@ -85,17 +86,9 @@ export default function CoachChat() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: conversationHistory.current,
-          systemPrompt: SYSTEM_PROMPT
-        }),
-      });
-
-      const data = await response.json();
-      const aiText = data.response || "Sorry, I couldn't get a response. Please try again.";
+      const response = await api.sendCoachMessage(userMsg, conversationHistory.current.length > 2 ? 'current' : undefined);
+      
+      const aiText = response.response || "Sorry, I couldn't get a response. Please try again.";
 
       const assistantMessage: ConversationMessage = { role: "assistant", content: aiText };
       conversationHistory.current.push(assistantMessage);
@@ -111,6 +104,7 @@ export default function CoachChat() {
         );
       });
     } catch (err) {
+      console.error('Coach chat error:', err);
       setLoading(false);
       setMessages(prev => [...prev, {
         type: "ai",
