@@ -16,7 +16,10 @@ const COLLECTIONS = {
   documents: 'documents.json',
   userProfiles: 'userProfiles.json',
   activities: 'activities.json',
-  recommendations: 'recommendations.json'
+  recommendations: 'recommendations.json',
+  behaviorEvents: 'behaviorEvents.json',
+  behaviorTriggers: 'behaviorTriggers.json',
+  recommendationCache: 'recommendationCache.json'
 };
 
 // PostgreSQL connection for vector operations

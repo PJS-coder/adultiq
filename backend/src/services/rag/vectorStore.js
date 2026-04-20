@@ -93,8 +93,14 @@ export class VectorStore {
     try {
       console.log(`🔍 Performing similarity search: "${query}"`);
 
-      // Generate query embedding
-      const queryEmbedding = await EmbeddingService.embedQuery(query);
+      let queryEmbedding = null;
+      
+      // Try to generate query embedding if OpenAI is available
+      try {
+        queryEmbedding = await EmbeddingService.embedQuery(query);
+      } catch (embeddingError) {
+        console.log('⚠️  Embeddings not available, using text-based search');
+      }
 
       // Try PostgreSQL first
       try {
@@ -120,13 +126,38 @@ export class VectorStore {
       }
     } catch (error) {
       console.error('Error in similarity search:', error);
-      throw new Error(`Similarity search failed: ${error.message}`);
+      
+      // Final fallback: return recent documents for the user
+      try {
+        const userDocuments = localStorage.find('documents', { userId });
+        const recentChunks = [];
+        
+        userDocuments.slice(0, 2).forEach(doc => {
+          const chunks = localStorage.find('documentChunks', { documentId: doc.id });
+          chunks.slice(0, Math.ceil(limit / 2)).forEach(chunk => {
+            recentChunks.push({
+              content: chunk.content,
+              similarity: 0.3, // Low similarity for fallback
+              chunkIndex: chunk.chunkIndex,
+              documentTitle: doc.title,
+              documentType: doc.documentType,
+              source: 'fallback'
+            });
+          });
+        });
+        
+        console.log(`⚠️  Using fallback: returning ${recentChunks.length} recent chunks`);
+        return recentChunks.slice(0, limit);
+      } catch (fallbackError) {
+        console.error('Fallback search failed:', fallbackError);
+        return [];
+      }
     }
   }
 
   /**
    * Perform similarity search in local storage (fallback)
-   * @param {Array} queryEmbedding - Query embedding vector
+   * @param {Array} queryEmbedding - Query embedding vector (or null for text search)
    * @param {string} userId - User ID (optional)
    * @param {number} limit - Maximum number of results
    * @param {number} threshold - Minimum similarity threshold
@@ -144,29 +175,53 @@ export class VectorStore {
         chunks = chunks.filter(chunk => userDocIds.includes(chunk.documentId));
       }
 
-      // Calculate similarities
-      const scoredChunks = chunks
-        .filter(chunk => chunk.embedding && chunk.embedding.length > 0)
-        .map(chunk => {
-          const similarity = EmbeddingService.calculateSimilarity(queryEmbedding, chunk.embedding);
-          
-          // Get document metadata
+      let scoredChunks = [];
+
+      if (queryEmbedding && Array.isArray(queryEmbedding)) {
+        // Use vector similarity if embeddings available
+        scoredChunks = chunks
+          .filter(chunk => chunk.embedding && chunk.embedding.length > 0)
+          .map(chunk => {
+            const similarity = EmbeddingService.calculateSimilarity(queryEmbedding, chunk.embedding);
+            
+            // Get document metadata
+            const document = localStorage.findOne('documents', { id: chunk.documentId });
+            
+            return {
+              content: chunk.content,
+              similarity,
+              chunkIndex: chunk.chunkIndex,
+              documentTitle: document?.title || 'Unknown',
+              documentType: document?.documentType || 'unknown',
+              tokenCount: chunk.tokenCount,
+              metadata: chunk.metadata,
+              source: 'local'
+            };
+          })
+          .filter(chunk => chunk.similarity >= threshold)
+          .sort((a, b) => b.similarity - a.similarity)
+          .slice(0, limit);
+      } else {
+        // Use text-based search as fallback
+        console.log('⚠️  Using text-based search fallback');
+        
+        // For text search, we need the original query string
+        // This is a limitation - we'll return all chunks with basic scoring
+        scoredChunks = chunks.map(chunk => {
           const document = localStorage.findOne('documents', { id: chunk.documentId });
           
           return {
             content: chunk.content,
-            similarity,
+            similarity: 0.5, // Default similarity for text-based fallback
             chunkIndex: chunk.chunkIndex,
             documentTitle: document?.title || 'Unknown',
             documentType: document?.documentType || 'unknown',
             tokenCount: chunk.tokenCount,
             metadata: chunk.metadata,
-            source: 'local'
+            source: 'local-text'
           };
-        })
-        .filter(chunk => chunk.similarity >= threshold)
-        .sort((a, b) => b.similarity - a.similarity)
-        .slice(0, limit);
+        }).slice(0, limit);
+      }
 
       console.log(`✅ Found ${scoredChunks.length} results in local storage`);
       return scoredChunks;

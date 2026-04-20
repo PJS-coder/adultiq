@@ -46,13 +46,13 @@ app.get('/health', (req, res) => {
     message: 'AdultIQ AI Platform is running',
     timestamp: new Date().toISOString(),
     features: {
-      rag: !!process.env.OPENAI_API_KEY,
+      rag: !!process.env.NVIDIA_API_KEY, // RAG depends on NVIDIA now
       personalization: true,
       vectorDB: !!process.env.POSTGRES_HOST,
       aiModels: {
+        nvidia: !!process.env.NVIDIA_API_KEY,
         openai: !!process.env.OPENAI_API_KEY,
-        anthropic: !!process.env.ANTHROPIC_API_KEY,
-        nvidia: !!process.env.NVIDIA_API_KEY
+        anthropic: !!process.env.ANTHROPIC_API_KEY
       }
     }
   });
@@ -116,10 +116,10 @@ app.listen(PORT, () => {
   console.log(`🔗 Health check: http://localhost:${PORT}/health`);
   console.log(`📚 API docs: http://localhost:${PORT}/api`);
   console.log(`🤖 Features enabled:`);
-  console.log(`   - RAG: ${process.env.OPENAI_API_KEY ? '✅' : '❌'}`);
+  console.log(`   - RAG: ${process.env.NVIDIA_API_KEY ? '✅' : '❌'}`);
   console.log(`   - Personalization: ✅`);
   console.log(`   - Vector DB: ${process.env.POSTGRES_HOST ? '✅' : '❌'}`);
-  console.log(`   - AI Models: OpenAI ${process.env.OPENAI_API_KEY ? '✅' : '❌'} | Anthropic ${process.env.ANTHROPIC_API_KEY ? '✅' : '❌'} | NVIDIA ${process.env.NVIDIA_API_KEY ? '✅' : '❌'}`);
+  console.log(`   - AI Models: NVIDIA ${process.env.NVIDIA_API_KEY ? '✅' : '❌'} | OpenAI ${process.env.OPENAI_API_KEY ? '✅' : '❌'} | Anthropic ${process.env.ANTHROPIC_API_KEY ? '✅' : '❌'}`);
 });
 
 export default app;

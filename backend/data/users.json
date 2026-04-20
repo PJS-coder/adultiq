@@ -76,5 +76,31 @@
     "quizAnswers": {},
     "level": 1,
     "xp": 30
+  },
+  {
+    "id": "177671053777087ukfmlxz",
+    "createdAt": "2026-04-20T18:42:17.770Z",
+    "updatedAt": "2026-04-20T18:52:45.576Z",
+    "name": "NVIDIA User",
+    "email": "nvidia@adultiq.com",
+    "password": "$2a$10$N.72oaK8HxgtuJ1Q3yP4Len7I.3zMYDVhd5j9lFjCdKjHj0JIZWBS",
+    "adultIqScore": 0,
+    "quizCompleted": false,
+    "quizAnswers": {},
+    "level": 1,
+    "xp": 25
+  },
+  {
+    "id": "1776711180809nnwbkyshe",
+    "createdAt": "2026-04-20T18:53:00.809Z",
+    "updatedAt": "2026-04-20T18:56:00.093Z",
+    "name": "Test User 2",
+    "email": "test2@adultiq.com",
+    "password": "$2a$10$GKtH.RfMGLTQ2YlntyL4vuPL0NoQuu2ga7SqbIH0KUc14ycjo94Ue",
+    "adultIqScore": 0,
+    "quizCompleted": false,
+    "quizAnswers": {},
+    "level": 1,
+    "xp": 12
   }
 ]

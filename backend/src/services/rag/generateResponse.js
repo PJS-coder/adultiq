@@ -6,7 +6,27 @@ import Anthropic from '@anthropic-ai/sdk';
  * Generates structured responses using RAG context
  */
 
-// Initialize AI clients only if API keys are available
+// Initialize NVIDIA client as primary AI provider
+let nvidiaClient = null;
+
+// Try to get NVIDIA API key from environment or use the provided key directly
+const nvidiaApiKey = process.env.NVIDIA_API_KEY || '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';
+
+console.log('🔍 Checking NVIDIA API key:', nvidiaApiKey ? 'Found' : 'Not found');
+console.log('🔍 NVIDIA API key length:', nvidiaApiKey?.length || 0);
+
+if (nvidiaApiKey && nvidiaApiKey !== 'your_nvidia_api_key_here') {
+  nvidiaClient = {
+    apiKey: nvidiaApiKey,
+    apiUrl: process.env.NVIDIA_API_URL || 'https://integrate.api.nvidia.com/v1/chat/completions',
+    model: process.env.NVIDIA_MODEL || 'meta/llama-3.1-405b-instruct'
+  };
+  console.log('✅ NVIDIA client initialized with key length:', nvidiaApiKey.length);
+} else {
+  console.log('❌ NVIDIA API key not found or invalid');
+}
+
+// Keep OpenAI and Anthropic as fallbacks only
 let openai = null;
 let anthropic = null;
 
@@ -33,7 +53,7 @@ export class ResponseGenerator {
   static async generateDocumentAnalysis(query, context, options = {}) {
     try {
       const {
-        model = 'gpt-4-turbo-preview',
+        model = 'nvidia', // Default to NVIDIA
         temperature = 0.1,
         includeConfidence = true,
         documentType = 'general'
@@ -44,12 +64,15 @@ export class ResponseGenerator {
       const prompt = this.buildDocumentAnalysisPrompt(query, context, documentType);
 
       let response;
-      if (model.startsWith('gpt')) {
+      // Try NVIDIA first, then fallback to others
+      if (nvidiaClient) {
+        response = await this.generateWithNvidia(prompt, temperature);
+      } else if (model.startsWith('gpt') && openai) {
         response = await this.generateWithOpenAI(prompt, model, temperature);
-      } else if (model.startsWith('claude')) {
+      } else if (model.startsWith('claude') && anthropic) {
         response = await this.generateWithAnthropic(prompt, model, temperature);
       } else {
-        throw new Error(`Unsupported model: ${model}`);
+        throw new Error('No AI provider available');
       }
 
       // Parse and structure the response
@@ -60,7 +83,7 @@ export class ResponseGenerator {
       return {
         ...structuredResponse,
         query,
-        model,
+        model: nvidiaClient ? 'nvidia-llama' : model,
         timestamp: new Date().toISOString()
       };
     } catch (error) {
@@ -80,7 +103,7 @@ export class ResponseGenerator {
   static async generateCoachResponse(query, context, userProfile, options = {}) {
     try {
       const {
-        model = 'gpt-4-turbo-preview',
+        model = 'nvidia', // Default to NVIDIA
         temperature = 0.3,
         conversationHistory = []
       } = options;
@@ -90,12 +113,15 @@ export class ResponseGenerator {
       const prompt = this.buildCoachPrompt(query, context, userProfile, conversationHistory);
 
       let response;
-      if (model.startsWith('gpt')) {
+      // Try NVIDIA first, then fallback to others
+      if (nvidiaClient) {
+        response = await this.generateWithNvidia(prompt, temperature);
+      } else if (model.startsWith('gpt') && openai) {
         response = await this.generateWithOpenAI(prompt, model, temperature);
-      } else if (model.startsWith('claude')) {
+      } else if (model.startsWith('claude') && anthropic) {
         response = await this.generateWithAnthropic(prompt, model, temperature);
       } else {
-        throw new Error(`Unsupported model: ${model}`);
+        throw new Error('No AI provider available');
       }
 
       return {
@@ -106,7 +132,7 @@ export class ResponseGenerator {
           tone: this.determineTone(userProfile)
         },
         query,
-        model,
+        model: nvidiaClient ? 'nvidia-llama' : model,
         timestamp: new Date().toISOString()
       };
     } catch (error) {
@@ -116,7 +142,61 @@ export class ResponseGenerator {
   }
 
   /**
-   * Generate response using OpenAI
+   * Generate response using NVIDIA API (Primary)
+   * @param {string} prompt - System prompt
+   * @param {number} temperature - Temperature setting
+   * @returns {Promise<string>} Generated response
+   */
+  static async generateWithNvidia(prompt, temperature = 0.1) {
+    if (!nvidiaClient) {
+      throw new Error('NVIDIA API key not configured');
+    }
+
+    try {
+      console.log('🤖 Making NVIDIA API request...');
+      
+      const response = await fetch(nvidiaClient.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${nvidiaClient.apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: nvidiaClient.model,
+          messages: [{ role: 'user', content: prompt }],
+          temperature,
+          top_p: 0.7,
+          max_tokens: 3000,
+          stream: false
+        })
+      });
+
+      console.log('📡 NVIDIA API response status:', response.status);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('NVIDIA API error response:', errorText);
+        throw new Error(`NVIDIA API error: ${response.status} ${response.statusText} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      console.log('✅ NVIDIA API response received');
+      
+      const content = data.choices?.[0]?.message?.content;
+      if (!content) {
+        console.error('No content in NVIDIA response:', data);
+        throw new Error('No content received from NVIDIA API');
+      }
+      
+      return content;
+    } catch (error) {
+      console.error('NVIDIA API error:', error);
+      throw new Error(`NVIDIA generation failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Generate response using OpenAI (Fallback)
    * @param {string} prompt - System prompt
    * @param {string} model - Model name
    * @param {number} temperature - Temperature setting
@@ -143,7 +223,7 @@ export class ResponseGenerator {
   }
 
   /**
-   * Generate response using Anthropic Claude
+   * Generate response using Anthropic Claude (Fallback)
    * @param {string} prompt - System prompt
    * @param {string} model - Model name
    * @param {number} temperature - Temperature setting
@@ -392,15 +472,22 @@ Respond in a helpful, encouraging tone that matches their experience level.`;
    */
   static async generateQuickResponse(query, userProfile) {
     try {
-      const prompt = `As AdultIQ's AI coach, provide a brief, helpful response to this question from a ${userProfile.age}-year-old ${userProfile.employmentStatus || 'person'} with ${userProfile.knowledgeLevel || 'basic'} knowledge:
+      const prompt = `As AdultIQ's AI coach, provide a brief, helpful response to this question from a ${userProfile.age || 'young adult'}-year-old ${userProfile.employmentStatus || 'person'} with ${userProfile.knowledgeLevel || 'basic'} knowledge:
 
 Question: ${query}
 
 Keep the response under 100 words, friendly, and actionable.`;
 
-      const response = await this.generateWithOpenAI(prompt, 'gpt-3.5-turbo', 0.3);
-      
-      return response.trim();
+      // Try NVIDIA first, then fallback
+      if (nvidiaClient) {
+        const response = await this.generateWithNvidia(prompt, 0.3);
+        return response.trim();
+      } else if (openai) {
+        const response = await this.generateWithOpenAI(prompt, 'gpt-3.5-turbo', 0.3);
+        return response.trim();
+      } else {
+        return "I'd be happy to help! Could you provide a bit more detail about your specific situation?";
+      }
     } catch (error) {
       console.error('Error generating quick response:', error);
       return "I'd be happy to help! Could you provide a bit more detail about your specific situation?";

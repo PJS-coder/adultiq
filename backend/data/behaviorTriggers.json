@@ -1,0 +1,13 @@
+[
+  {
+    "id": "1776711360091kblmksal9",
+    "createdAt": "2026-04-20T18:56:00.091Z",
+    "updatedAt": "2026-04-20T18:56:00.091Z",
+    "userId": "1776711180809nnwbkyshe",
+    "triggerType": "inactivity_reminder",
+    "message": "We miss you! Come back and continue your learning journey.",
+    "priority": "low",
+    "originalEvent": "coach_interaction",
+    "timestamp": "2026-04-20T18:56:00.090Z"
+  }
+]

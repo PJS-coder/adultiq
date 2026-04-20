@@ -63,7 +63,7 @@ router.post('/chat', protect, async (req, res) => {
           userProfile,
           {
             conversationHistory: conversationHistory.slice(-3), // Last 3 messages for context
-            model: process.env.OPENAI_API_KEY ? 'gpt-4-turbo-preview' : 'claude-3-sonnet-20240229',
+            model: 'nvidia', // Use NVIDIA as primary
             temperature: 0.3
           }
         );

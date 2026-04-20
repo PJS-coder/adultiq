@@ -202,7 +202,7 @@ router.post('/analyze', protect, async (req, res) => {
       {
         documentType,
         includeConfidence: true,
-        model: 'gpt-4-turbo-preview'
+        model: 'nvidia' // Use NVIDIA as primary
       }
     );
 
@@ -287,7 +287,7 @@ router.post('/decode', protect, async (req, res) => {
         { 
           documentType, 
           includeConfidence: true,
-          model: process.env.OPENAI_API_KEY ? 'gpt-4-turbo-preview' : 'claude-3-sonnet-20240229'
+          model: 'nvidia' // Use NVIDIA as primary
         }
       );
 

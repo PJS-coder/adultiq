@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1776711360089u5sylyegf",
+    "createdAt": "2026-04-20T18:56:00.089Z",
+    "updatedAt": "2026-04-20T18:56:00.089Z",
+    "userId": "1776711180809nnwbkyshe",
+    "eventType": "coach_interaction",
+    "eventData": {
+      "messageLength": 42,
+      "hasContext": false,
+      "topic": "finance",
+      "sentiment": "neutral",
+      "complexity": "complex"
+    },
+    "context": {
+      "timestamp": "2026-04-20T18:56:00.088Z"
+    },
+    "patterns": {
+      "frequency": {
+        "currentEventCount": {
+          "total": 0,
+          "daily": 0,
+          "weekly": 0
+        },
+        "mostFrequent": "none",
+        "dailyActivity": 0,
+        "weeklyActivity": 0
+      },
+      "timing": {
+        "peakHour": 0,
+        "peakDay": 0,
+        "currentHourActivity": 0,
+        "currentDayActivity": 0,
+        "isTypicalTime": true,
+        "timeOfDayPattern": "night"
+      },
+      "sequences": {
+        "commonSequences": [],
+        "followsPattern": false,
+        "potentialSequence": "coach_interaction",
+        "sequenceBreaker": false
+      },
+      "engagement": {
+        "avgSessionLength": 0,
+        "avgInteractionDepth": 0,
+        "totalSessions": 0,
+        "currentSessionLength": 0,
+        "engagementLevel": "low",
+        "isDeepEngagement": false
+      },
+      "learning": {
+        "totalLearningEvents": 0,
+        "avgScore": 0,
+        "progressionTrend": "insufficient_data",
+        "learningVelocity": 0,
+        "preferredLearningStyle": "visual",
+        "isLearningEvent": false,
+        "strugglingArea": null
+      }
+    }
+  }
+]

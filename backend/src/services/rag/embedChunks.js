@@ -95,9 +95,9 @@ export class EmbeddingService {
   }
 
   /**
-   * Generate embeddings for document chunks
+   * Generate embeddings for document chunks (fallback without OpenAI)
    * @param {Array} chunks - Document chunks with content
-   * @returns {Promise<Array>} Chunks with embeddings
+   * @returns {Promise<Array>} Chunks with mock embeddings or without embeddings
    */
   static async embedChunks(chunks) {
     try {
@@ -105,25 +105,46 @@ export class EmbeddingService {
         return [];
       }
 
-      console.log(`🔄 Generating embeddings for ${chunks.length} chunks...`);
+      console.log(`🔄 Processing ${chunks.length} chunks...`);
 
-      // Extract text content from chunks
-      const texts = chunks.map(chunk => chunk.content);
-      
-      // Generate embeddings
-      const embeddings = await this.generateBatchEmbeddings(texts);
+      // If OpenAI is available, generate real embeddings
+      if (openai) {
+        // Extract text content from chunks
+        const texts = chunks.map(chunk => chunk.content);
+        
+        // Generate embeddings
+        const embeddings = await this.generateBatchEmbeddings(texts);
 
-      // Combine chunks with their embeddings
-      const embeddedChunks = chunks.map((chunk, index) => ({
-        ...chunk,
-        embedding: embeddings[index]
-      }));
+        // Combine chunks with their embeddings
+        const embeddedChunks = chunks.map((chunk, index) => ({
+          ...chunk,
+          embedding: embeddings[index]
+        }));
 
-      console.log(`✅ Generated ${embeddings.length} embeddings`);
-      return embeddedChunks;
+        console.log(`✅ Generated ${embeddings.length} embeddings`);
+        return embeddedChunks;
+      } else {
+        // Fallback: return chunks without embeddings but with search metadata
+        console.log(`⚠️  OpenAI not available, using text-based search fallback`);
+        const processedChunks = chunks.map((chunk, index) => ({
+          ...chunk,
+          embedding: null, // No embedding available
+          searchTerms: this.extractSearchTerms(chunk.content), // Extract keywords for text search
+          chunkIndex: index
+        }));
+
+        console.log(`✅ Processed ${processedChunks.length} chunks for text-based search`);
+        return processedChunks;
+      }
     } catch (error) {
-      console.error('Error embedding chunks:', error);
-      throw error;
+      console.error('Error processing chunks:', error);
+      // Return chunks without embeddings as fallback
+      return chunks.map((chunk, index) => ({
+        ...chunk,
+        embedding: null,
+        searchTerms: this.extractSearchTerms(chunk.content),
+        chunkIndex: index
+      }));
     }
   }
 
@@ -229,15 +250,88 @@ export class EmbeddingService {
   }
 
   /**
-   * Get embedding model info
-   * @returns {Object} Model information
+   * Extract search terms from text for fallback text-based search
+   * @param {string} text - Text to extract terms from
+   * @returns {Array} Array of search terms
    */
-  static getModelInfo() {
-    return {
-      model: EMBEDDING_MODEL,
-      dimensions: EMBEDDING_MODEL.includes('3-small') ? 1536 : 1536,
-      batchSize: BATCH_SIZE
-    };
+  static extractSearchTerms(text) {
+    if (!text) return [];
+    
+    // Convert to lowercase and split into words
+    const words = text.toLowerCase()
+      .replace(/[^\w\s]/g, ' ') // Remove punctuation
+      .split(/\s+/)
+      .filter(word => word.length > 2); // Filter out short words
+    
+    // Remove common stop words
+    const stopWords = new Set([
+      'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by',
+      'from', 'up', 'about', 'into', 'through', 'during', 'before', 'after', 'above',
+      'below', 'between', 'among', 'this', 'that', 'these', 'those', 'is', 'are', 'was',
+      'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will',
+      'would', 'could', 'should', 'may', 'might', 'must', 'can', 'shall'
+    ]);
+    
+    const filteredWords = words.filter(word => !stopWords.has(word));
+    
+    // Return unique terms
+    return [...new Set(filteredWords)];
+  }
+
+  /**
+   * Calculate text similarity using keyword matching (fallback)
+   * @param {Array} queryTerms - Query search terms
+   * @param {Array} chunkTerms - Chunk search terms
+   * @returns {number} Similarity score (0-1)
+   */
+  static calculateTextSimilarity(queryTerms, chunkTerms) {
+    if (!queryTerms.length || !chunkTerms.length) return 0;
+    
+    const querySet = new Set(queryTerms);
+    const chunkSet = new Set(chunkTerms);
+    
+    // Calculate Jaccard similarity (intersection over union)
+    const intersection = new Set([...querySet].filter(term => chunkSet.has(term)));
+    const union = new Set([...querySet, ...chunkSet]);
+    
+    return intersection.size / union.size;
+  }
+
+  /**
+   * Find similar chunks using text-based search (fallback)
+   * @param {string} query - Search query
+   * @param {Array} chunks - Chunks with search terms
+   * @param {number} topK - Number of top results to return
+   * @returns {Array} Top K most similar chunks with scores
+   */
+  static findSimilarChunksText(query, chunks, topK = 5) {
+    try {
+      if (!query || !chunks || chunks.length === 0) {
+        return [];
+      }
+
+      const queryTerms = this.extractSearchTerms(query);
+      
+      // Calculate similarity scores using text matching
+      const scoredChunks = chunks
+        .filter(chunk => chunk.searchTerms && chunk.searchTerms.length > 0)
+        .map(chunk => ({
+          ...chunk,
+          similarity: this.calculateTextSimilarity(queryTerms, chunk.searchTerms)
+        }))
+        .sort((a, b) => b.similarity - a.similarity)
+        .slice(0, topK);
+
+      console.log(`🎯 Found ${scoredChunks.length} similar chunks using text search`);
+      scoredChunks.forEach((chunk, index) => {
+        console.log(`  ${index + 1}. Similarity: ${chunk.similarity.toFixed(3)} - "${chunk.content.substring(0, 60)}..."`);
+      });
+
+      return scoredChunks;
+    } catch (error) {
+      console.error('Error finding similar chunks with text search:', error);
+      return [];
+    }
   }
 }
 
